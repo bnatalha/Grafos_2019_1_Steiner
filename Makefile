@@ -2,14 +2,15 @@ OUT = App.out
 CC = g++
 SDIR = src
 ODIR = out
-INC =
+INC = -std=c++11
 
 # Adicionar novos arquivos a medida que for desenvolvendo
 # Para adicionar quebra de linha, basta inserir uma barra invertida (\)
 # Exemplo:
 # _EXEMPLO = nome\
 #							outroNome
-_OBJS = Main.o 
+_OBJS = Main.o \
+				Edge.o
 
 # Cria os caminho completo de saídas para os arquivos objeto
 OBJS = $(patsubst %, $(ODIR)/%, $(_OBJS))
@@ -20,7 +21,7 @@ $(ODIR)/%.o: $(SDIR)/%.cpp
 
 # Compila o arquivo de saída com nome $(OUT)
 $(OUT): $(ODIR) $(OBJS) 
-	$(CC) -g $(ODIR)/*.o -lm -o $(ODIR)/$(OUT)
+	$(CC) -g $(INC) $(ODIR)/*.o -lm -o $(ODIR)/$(OUT)
 
 # Cria diretório de saída
 $(ODIR):
