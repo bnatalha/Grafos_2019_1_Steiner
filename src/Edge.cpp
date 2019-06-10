@@ -1,22 +1,22 @@
 #include "Edge.hpp"
 
-Edge::Edge(int origin, int destination, int cost){
-  this->origin = origin;
-  this->destination = destination;
-  this->cost = cost;
+Edge::Edge(int _origin, int _destination, int _cost){
+  this->origin = _origin;
+  this->destination = _destination;
+  this->cost = _cost;
 }
 
 Edge::~Edge(){}
 
-int const Edge::getOrigin(){
+int Edge::getOrigin(){
   return this->origin;
 }
 
-int const Edge::getDestination(){
+int Edge::getDestination(){
   return this->destination;
 }
 
-int const Edge::getCost(){
+int Edge::getCost(){
   return this->cost;
 }
 

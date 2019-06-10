@@ -1,56 +1,74 @@
+#include <iomanip>
 #include <iostream>
-#include <algorithm>
+#include <vector>
 
 #include "Edge.hpp"
 
-void edgeTest();
+using namespace std;
 
 /**
  * Classe principal para a inicialização e execução do programa
  */
-int main(int argc, char const *argv[]){
-  std::unordered_set<int> steiner, terminal;
+int main(int argc, char const *argv[])
+{
+    std::unordered_set<int> steiner, terminal;
 
-  int n;
-  std::cin >> n;
+    std::vector<Edge> edges;
 
-  for (int i = 0; i < n; i++){
-    int o, d, c;
-    std::cin >> o >> d >> c;
+    int steinerCount, terminalCount, edgesCount;
+    std::cin >> steinerCount >> terminalCount >> edgesCount;
 
-    steiner.insert(o);
-    terminal.insert(d);
+    int totalVertices = steinerCount + terminalCount + 1;
 
-    Edge *e1 = new Edge(o, d, c);
-    
-    std::cout << *e1 << std::endl;
-
-    if(e1){
-      delete e1;
+    vector< vector<int> > matrix (totalVertices);
+    for(int i = 0; i < totalVertices; i++){
+        matrix[i].resize(totalVertices, -1);
+        matrix[i][i] = 0;
     }
-  }
+    
+    for (int i = 0; i < edgesCount; i++){
+        int o, d, c;
+        std::cin >> o >> d >> c;
 
-  std::cout << "Steiner: ";
-  for(int s : steiner){
-    std::cout << s << " ";
-  }
-  std::cout << std::endl;
+        matrix[o][d] = matrix[d][o] = c;
+        matrix[0][o] = matrix[o][0] = 0;
+        steiner.insert(o);
+        terminal.insert(d);
 
-  std::cout << "Terminal: ";
-  for(int t : terminal){
-    std::cout << t << " ";
-  }
-  std::cout << std::endl;
+        
 
-  return 0;
-}
+        Edge newEdge(o, d, c);
 
-void edgeTest(){
-  Edge e1(0, 1, 5), e2(0, 2, 9);
+        edges.push_back(newEdge);
+    }
 
-  std::cout << "E1: " << e1 << std::endl;
-  std::cout << "E2: " << e2 << std::endl;
+    std::cout << std::endl;
+    std::cout << "Steiner: ";
+    for (int s : steiner){
+        std::cout << s << " ";
+    }
+    std::cout << std::endl
+              << std::endl;
+    
+    std::cout << "Terminal: ";
+    for (int t : terminal){
+        std::cout << t << " ";
+    }
+    std::cout << std::endl
+              << std::endl;
 
-  std::cout << "E1 > E2 " << (e1 > e2 ? "(sim)" : "(não)") << std::endl;
-  std::cout << "E1 < E2 " << (e1 < e2 ? "(sim)" : "(não)") << std::endl;
+    for (Edge e : edges){
+        std::cout << e << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < totalVertices; i++){
+        for (int j = 0; j < totalVertices; j++){
+            std::cout << setfill(' ') << setw(2) << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
 }

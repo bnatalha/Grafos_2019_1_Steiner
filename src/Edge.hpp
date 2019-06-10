@@ -1,5 +1,5 @@
-#ifndef _EDGE_HPP_
-#define _EDGE_HPP_
+#ifndef EDGE_HPP
+#define EDGE_HPP
 
 #include <iostream>
 #include <unordered_set>
@@ -11,13 +11,13 @@ public:
   Edge(int, int, int);
   ~Edge();
 
-  int const getOrigin();
-  int const getDestination();
-  int const getCost();
+  int getOrigin();
+  int getDestination();
+  int getCost();
 
   friend bool operator>(Edge const &, Edge const &);
   friend bool operator<(Edge const &, Edge const &);
   friend std::ostream &operator<<(std::ostream &, const Edge &);
 };
 
-#endif // _EDGE_HPP_
+#endif //EDGE_HPP
