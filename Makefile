@@ -9,7 +9,7 @@ INC =
 # Exemplo:
 # _EXEMPLO = nome\
 #							outroNome
-_OBJS = Main.o 
+_OBJS = Main.o Edge.o
 
 # Cria os caminho completo de saídas para os arquivos objeto
 OBJS = $(patsubst %, $(ODIR)/%, $(_OBJS))
