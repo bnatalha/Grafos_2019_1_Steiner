@@ -1,9 +1,18 @@
+OUT = App.out
+CC = g++
+SDIR = src
+ODIR = out
 
-App.out: Main.o
-	cc -g -o App.out Main.o -lm
+$(OUT): Main.o
+	$(CC) -g -o $(OUT) $(ODIR)/Main.o -lm
 
-Main.o: src/Main.cpp
-	cc -g -c src/Main.cpp
+Main.o: $(SDIR)/Main.cpp main-dir
+	$(CC) -g -c $(SDIR)/Main.cpp -o $(ODIR)/Main.o
+
+main-dir:
+	mkdir -p $(ODIR)
 
 clean:
-	rm -f *.out *.o
+	rm -Rf src/*.dSYM
+	rm -Rf $(ODIR)
+	rm -f $(OUT)
