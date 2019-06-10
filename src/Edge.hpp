@@ -2,6 +2,7 @@
 #define _EDGE_HPP_
 
 #include <iostream>
+#include <unordered_set>
 
 class Edge {
 private:
