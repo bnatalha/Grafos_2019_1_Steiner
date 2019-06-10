@@ -1,38 +1,30 @@
 #include "Edge.hpp"
 
-Edge::Edge(int origin, int destination, int cost)
-{
+Edge::Edge(int origin, int destination, int cost){
   this->origin = origin;
   this->destination = destination;
   this->cost = cost;
 }
 
-Edge::~Edge()
-{
-}
+Edge::~Edge(){}
 
-int const Edge::getOrigin()
-{
+int const Edge::getOrigin(){
   return this->origin;
 }
 
-int const Edge::getDestination()
-{
+int const Edge::getDestination(){
   return this->destination;
 }
 
-int const Edge::getCost()
-{
+int const Edge::getCost(){
   return this->cost;
 }
 
-bool operator<(Edge const & a, Edge const & b)
-{
+bool operator<(Edge const & a, Edge const & b){
   return a.cost < b.cost;
 }
 
-bool operator>(Edge const &a, Edge const &b)
-{
+bool operator>(Edge const &a, Edge const &b){
   return a.cost > b.cost;
 }
 

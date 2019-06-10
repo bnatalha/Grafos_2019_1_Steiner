@@ -3,8 +3,7 @@
 
 #include <iostream>
 
-class Edge
-{
+class Edge {
 private:
   int origin, destination, cost;
 public:

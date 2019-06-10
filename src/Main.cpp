@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include "Edge.hpp"
 
@@ -7,11 +8,23 @@ void edgeTest();
 /**
  * Classe principal para a inicialização e execução do programa
  */
-int main(int argc, char const *argv[])
-{
-  std::cout << "MainApp" << std::endl;
+int main(int argc, char const *argv[]){
+  int n;
+  std::cin >> n;
 
-  edgeTest();
+  for (int i = 0; i < n; i++){
+    int o, d, c;
+
+    std::cin >> o >> d >> c;
+
+    Edge *e1 = new Edge(o, d, c);
+    
+    std::cout << *e1 << std::endl;
+
+    if(e1){
+      delete e1;
+    }
+  }
 
   return 0;
 }
