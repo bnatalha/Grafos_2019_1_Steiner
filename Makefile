@@ -1,9 +1,32 @@
+OUT = App.out
+CC = g++
+SDIR = src
+ODIR = out
+INC =
 
-App.out: Main.o
-	cc -g -o App.out Main.o -lm
+# Adicionar novos arquivos a medida que for desenvolvendo
+# Para adicionar quebra de linha, basta inserir uma barra invertida (\)
+# Exemplo:
+# _EXEMPLO = nome\
+#							outroNome
+_OBJS = Main.o 
 
-Main.o: src/Main.cpp
-	cc -g -c src/Main.cpp
+# Cria os caminho completo de saídas para os arquivos objeto
+OBJS = $(patsubst %, $(ODIR)/%, $(_OBJS))
 
-clean:
-	rm -f *.out *.o
+# Compila os arquivos intermediários objeto
+$(ODIR)/%.o: $(SDIR)/%.cpp
+	$(CC) -g -c $(INC) -o $@ $< $(CFLAGS)
+
+# Compila o arquivo de saída com nome $(OUT)
+$(OUT): $(ODIR) $(OBJS) 
+	$(CC) -g $(ODIR)/*.o -lm -o $(ODIR)/$(OUT)
+
+# Cria diretório de saída
+$(ODIR):
+	mkdir -p $(ODIR)
+
+# Limpa o repositório dos arquivos de compilados
+clean: 
+	rm -Rf src/*.dSYM
+	rm -Rf $(ODIR)
