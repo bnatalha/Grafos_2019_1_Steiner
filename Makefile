@@ -1,9 +1,22 @@
+OUT = App.out
+CC = g++
+SDIR = src
+ODIR = out
+INC =
 
-App.out: Main.o
-	cc -g -o App.out Main.o -lm
+_OBJS = Main.o 
 
-Main.o: src/Main.cpp
-	cc -g -c src/Main.cpp
+OBJS = $(patsubst %, $(ODIR)/%, $(_OBJS))
+
+$(ODIR)/%.o: $(SDIR)/%.cpp
+	$(CC) -g -c $(INC) -o $@ $< $(CFLAGS)
+
+$(OUT): $(ODIR) $(OBJS) 
+	$(CC) -g $(ODIR)/*.o -lm -o $(ODIR)/$(OUT)
+
+$(ODIR):
+	mkdir -p $(ODIR)
 
 clean:
-	rm -f *.out *.o
+	rm -Rf src/*.dSYM
+	rm -Rf $(ODIR)
