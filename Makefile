@@ -10,6 +10,7 @@ INC = -std=c++11
 # _EXEMPLO = nome\
 #							outroNome
 _OBJS = Main.o \
+				Dijkstra.o \
 				Edge.o \
 				SteinerGraph.o
 
