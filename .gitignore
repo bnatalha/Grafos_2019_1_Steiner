@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/c++,cmake,clion,eclipse,netbeans,intellij,visualstudio,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=c++,cmake,clion,eclipse,netbeans,intellij,visualstudio,visualstudiocode
 
+### VSCODE
+.vscode/*
+
 ### C++ ###
 # Prerequisites
 *.d
