@@ -84,7 +84,7 @@ void SteinerGraph::printEdges(){
 }
 
 /**
- * Salva um arquivo com a o grafo.
+ * Salva um arquivo com a o grafo em formato de matriz de adjacencia.
  */
 void SteinerGraph::writeToFile(std::string filename)
 {
@@ -96,10 +96,10 @@ void SteinerGraph::writeToFile(std::string filename)
         {
             for (unsigned long j = 0; j < matrix[i].size(); j++)
             {
-                std::cout << std::setfill(' ') << std::setw(2) << matrix[i][j] << " ";
+                // std::cout << std::setfill(' ') << std::setw(2) << matrix[i][j] << " ";
                 example << std::setfill(' ') << std::setw(2) << matrix[i][j] << " ";
             }
-            std::cout << std::endl;
+            // std::cout << std::endl;
             example << std::endl;
         }
         example.close();
