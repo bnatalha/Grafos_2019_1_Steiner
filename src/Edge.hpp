@@ -1,5 +1,5 @@
-#ifndef EDGE_HPP
-#define EDGE_HPP
+#ifndef SRC_EDGE_HPP_
+#define SRC_EDGE_HPP_
 
 #include <iostream>
 #include <unordered_set>
@@ -20,4 +20,4 @@ public:
   friend std::ostream &operator<<(std::ostream &, const Edge &);
 };
 
-#endif //EDGE_HPP
+#endif // SRC_EDGE_HPP_

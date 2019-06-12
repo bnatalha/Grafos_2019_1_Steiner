@@ -10,7 +10,8 @@ INC = -std=c++11
 # _EXEMPLO = nome\
 #							outroNome
 _OBJS = Main.o \
-				Edge.o
+				Edge.o \
+				SteinerGraph.o
 
 # Cria os caminho completo de saídas para os arquivos objeto
 OBJS = $(patsubst %, $(ODIR)/%, $(_OBJS))
