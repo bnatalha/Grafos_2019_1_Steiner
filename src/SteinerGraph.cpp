@@ -31,39 +31,20 @@ void SteinerGraph::readFromCin()
     // calcula total de vértices
     totalVertices = steinerCount + terminalCount + 1;   // +1 da raiz
 
-    // prepara a matriz/lista de adjacencia para receber os dados
-    matrix = std::vector<std::vector<int>>(totalVertices);
-    for (int i = 0; i < totalVertices; i++)
-    {
-        matrix[i].resize(totalVertices, 0);
-        edgesByVertex[i].resize(totalVertices);
-    }
+    // prepara a lista/vector de adjacencia para receber os dados
+    edges.resize(totalVertices);
+    edges.shrink_to_fit();
 
-
-    // enche a matriz de adjacencia com os dados lidos da entrada padrão
+    // enche a lista/vector de adjacencia com os dados lidos da entrada padrão
     for (int i = 0; i < edgesCount; i++)
     {
-        int m, d, c;    // medicamento, doença, custo
-        
+        int m, d, c;    // medicamento, doença, custo        
         std::cin >> m >> d >> c;    // leitura
-
-        // adicionando nos conjuntos de vértices
-        steiner.insert(m);
+        
+        steiner.insert(m);  // adicionando nos conjuntos de vértices
         terminal.insert(d);
 
-        matrix[m][d] = matrix[d][m] = c; // adicionando na matriz de adjacencia
-        edgesByVertex[d].push_back(Edge(d,m,c));    // adicionando na matriz de adjacencia
-
-        // adicionando no vector edges (doença, medicamento)
-        Edge newEdge(d, m, c);        
-        edges.push_back(newEdge);
-    }
-
-    // compactando/ordenando arestas
-    for (std::vector<Edge> vec: edgesByVertex)
-    {
-        vec.shrink_to_fit();    // compactando
-        std::sort(vec.begin(), vec.end()); // ordena crescente
+        edges[d].push_back(Edge(d,m,c)); // add aresta
     }
 }
 
@@ -71,13 +52,9 @@ void SteinerGraph::addSteinerRoot()
 {
     root.insert(ROOT_VERTEX);    // adiciona o vértice raiz no seu conjunto
 
-    // adiciona arestas auxiliares que ligam o vértice raiz aos vértices de steiner (medicamentos)
     for (int m: steiner)
-    {
-        matrix[m][ROOT_VERTEX] = matrix[ROOT_VERTEX][m] = ROOT_WEIGHT; // adicionando na matriz de adjacencia
-
-        Edge newEdge(m, ROOT_VERTEX, ROOT_WEIGHT); // adicionando no vector edges (medicamento, raiz)
-        edges.push_back(newEdge);
+    {        
+        edges[m].push_back(Edge(m, ROOT_VERTEX, ROOT_WEIGHT)); // adicionando no vector edges (medicamento, raiz)
     }
 }
 
@@ -96,40 +73,22 @@ void SteinerGraph::printTerminalSet(){
 }
 
 /*
- * Imprime matriz de adjacência.
+ * Imprime as arestas no saída padrão.
  */
-void SteinerGraph::printMatrix(){
-    // header
-    std::cout << "Adj ";
-    for (int i = 0; i < totalVertices; i++) std::cout << i << " ";
-    std::cout << std::endl;
-    for (int i = 0; i < totalVertices; i++) std::cout << "---";
-    std::cout << std::endl;
-    
-    // body
-    for (int i = 0; i < totalVertices; i++)
+void SteinerGraph::printEdges(){
+    for (int i = 0; i < edges.size(); i++)
     {
-        std::cout << i << "|  ";
-        for (int j = 0; j < totalVertices; j++)
+        std::cout << i << "-> ";
+        for (Edge e : edges[i])
         {
-            std::cout << matrix[i][j] << " ";
+            std::cout << std::setfill(' ') << std::setw(2) << e << " ";
         }
         std::cout << std::endl;
     }
 }
 
-/*
- * Imprime as arestas no saída padrão.
- */
-void SteinerGraph::printEdges(){
-    for (Edge e : edges)
-    {
-        std::cout << e << std::endl;
-    }
-}
-
 /**
- * Cria um arquivo com a o grafo em formato de matriz de adjacencia.
+ * Cria um arquivo com a o grafo em formato de lista de adjacencia.
  * @param filename nome do arquivo
  */
 void SteinerGraph::writeToFile(std::string filename)
@@ -138,36 +97,88 @@ void SteinerGraph::writeToFile(std::string filename)
     std::ofstream example(pathtofile);
     if (example.is_open())
     {
-        for (unsigned long i = 0; i < matrix.size(); i++)
+        // Steiner set
+        example << "Medicamentos: " ;
+        for (int m : steiner)
         {
-            for (unsigned long j = 0; j < matrix[i].size(); j++)
+            example << m << " ";
+        }
+        example << std::endl;
+
+        // Custo
+        example << "Custo Total: " << getTotalWeight() << std::endl;
+
+        // arestas
+        for (std::vector<Edge> vec : edges)
+        {
+            if (!vec.empty())
             {
-                // std::cout << std::setfill(' ') << std::setw(2) << matrix[i][j] << " ";
-                example << std::setfill(' ') << std::setw(2) << matrix[i][j] << " ";
+                for (Edge e : vec)
+                {
+                    example << std::setfill(' ') << std::setw(2) << e << " ";
+                }
+                example << std::endl;
             }
-            // std::cout << std::endl;
-            example << std::endl;
         }
         example.close();
     }
 }
 
-// std::vector<Edge> SteinerGraph::getNeighborhood(int v)
-// {
-//     std::vector<Edge>
-// }
+/**
+ * Dado um vértice v, retorna a aresta de menor custo incidente dele;
+ */
+Edge SteinerGraph::getMinWeightEdge(int v)
+{
+    std::vector<Edge> myEdges = edges[v];
+    Edge minWeightEdge = Edge(0,0,INT32_MAX);
+    for(Edge e : myEdges)
+    {
+        if(e < minWeightEdge)
+        {
+            minWeightEdge = e;
+        }
+    }
+
+    return minWeightEdge;
+}
+
+int SteinerGraph::getTotalWeight()
+{
+    int sum = 0;
+    for (std::vector<Edge> vec : edges)
+    {
+        for (Edge e: vec)
+        {
+            sum += e.getCost();
+        }
+    }
+    
+    return sum;
+}
 
 /**
- * [TODO]
+ * Retorna a árvore de custo mínimo
  */
-void SteinerGraph::calcSteinerMWT(/* func caminho mais curto */)
+SteinerGraph SteinerGraph::calcSteinerMWT()
 {
     SteinerGraph T; // Incializo árvore T
-    T.root.insert(ROOT_VERTEX);  // Adiciono o vértice raiz
-    // T.edges.push_back(ROOT_VERTEX)  // Adiciono o vértice raiz
+    // T.root.insert(ROOT_VERTEX);  // Adiciono o vértice raiz
+    T.edges.resize(edges.size());
 
     for(int d: terminal)
     {
-        // add caminho mais curto ao conjunto de terminais e arestas.
+        Edge minCostEdge = getMinWeightEdge(d); // pega a menor aresta que sái de 'd'
+        T.terminal.insert(d);   // add doença
+        T.edges[d].push_back(minCostEdge);  // add custo
+        T.steiner.insert(minCostEdge.getDestination()); // add medicamento       
     }
+
+    // compactando
+    T.edges.shrink_to_fit();
+    // // mostrando informações
+    // T.printSteinerSet();
+    // std::cout << "Custo mínimo: " << T.getTotalWeight() << std::endl;
+    // T.printEdges();
+
+    return T;
 }

@@ -13,13 +13,8 @@ class SteinerGraph
         std::unordered_set<int> steiner, terminal, root; // conjuntos de vértices
         int totalVertices;  // quantidade total de vértices + raiz
         
-        std::vector<Edge> edges; // arestas
+        std::vector<std::vector<Edge>> edges; // lista/vector de adjacencia
         int edgesCount; // quantidade de arestas
-
-        std::vector<std::vector<Edge>> edgesByVertex; // lista/vector de adjacencia
-
-        std::vector<std::vector<int>> matrix;   // matriz de adjacência
-
     private:
         void printVertexSet(std::unordered_set<int>, std::string);
 
@@ -31,12 +26,14 @@ class SteinerGraph
         void printSteinerSet();
         void printTerminalSet();
         void printEdges();
-        void printMatrix();
 
-        std::vector<Edge> getNeighborhood(int);
+        std::unordered_set<int> getNeighborhood(int);
 
         void addSteinerRoot();
-        void calcSteinerMWT();
+        Edge getMinWeightEdge(int);
+        int getTotalWeight();
+        SteinerGraph calcSteinerMWT();
+
 
         void writeToFile(std::string);
 };

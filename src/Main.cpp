@@ -14,25 +14,26 @@ std::string duration();
  */
 int main(int argc, char const *argv[])
 {
+
+
     // Instanciando grafo de steiner
-    SteinerGraph graph = SteinerGraph();
+    SteinerGraph ini_graph = SteinerGraph();
     
-    graph.readFromCin();    // Leitura 
-    graph.addSteinerRoot(); // Transforma numa árvore de steiner acrescentando uma raiz
+    ini_graph.readFromCin();    // Leitura 
+    ini_graph.addSteinerRoot(); // Transforma numa árvore de steiner acrescentando uma raiz
 
-    // graph.printSteinerSet();
-    // cout << endl;
-    // graph.printTerminalSet();
-    // cout << endl;
-    graph.printEdges();
-    cout << endl;
+    ini_graph.printSteinerSet();
+    ini_graph.printTerminalSet();
+    std::cout << std::endl;
 
-    std::sort(graph.edges.begin(),graph.edges.end());   // ordena as arestas
-    cout << "Ordenadas:\n";
-    graph.printEdges();
-    cout << endl;
+    ini_graph.printEdges();
+    std::cout << std::endl;
 
-    // graph.writeToFile("nat.txt");   // // escrevendo grafo em arquivo
+    SteinerGraph minTree = ini_graph.calcSteinerMWT();
+
+    std::cout << "Custo: " << minTree.getTotalWeight() << std::endl;
+
+    minTree.writeToFile("output.txt");   // escrevendo grafo em arquivo
 
     return 0;
 }
