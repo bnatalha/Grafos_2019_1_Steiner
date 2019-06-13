@@ -10,4 +10,4 @@ Executando o programa:
   - `out/App.out` é o executável;
   - `input/teste3.in` é um caminho para um arquivo de caso de teste;
 
-O programa salva os resultados na pasta `out` com o nome `output.txt`.
+O programa salva o arquivo `output.txt` com o resultado na pasta `out`.
