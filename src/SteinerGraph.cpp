@@ -1,16 +1,8 @@
 #include "SteinerGraph.hpp"
 
-/**
- * Construtor
- */
-SteinerGraph::SteinerGraph()
-{}
+SteinerGraph::SteinerGraph() {}
 
-/**
- * Destrutor
- */
-SteinerGraph::~SteinerGraph()
-{}
+SteinerGraph::~SteinerGraph() {}
 
 /**
  * Função auxiliar para imprimir std:unordered_set<int>
@@ -25,7 +17,7 @@ void SteinerGraph::printVertexSet(std::unordered_set<int> set, std::string setna
 }
 
 /**
- * Ler o grafo do cin
+ * Ler o grafo da entrada padrão
  */
 void SteinerGraph::readFromCin()
 {
@@ -45,7 +37,7 @@ void SteinerGraph::readFromCin()
         matrix[i][i] = 0;
     }
 
-    // enche a matriz de adjacencia com os dados lidos da std::cin
+    // enche a matriz de adjacencia com os dados lidos da entrada padrão
     for (int i = 0; i < edgesCount; i++)
     {
         int o, d, c;    // origin, destination, cost
@@ -70,12 +62,15 @@ void SteinerGraph::printSteinerSet(){
 }
 
 /*
- * Imprimi o set de terminais atual.
+ * Imprimi o conjunto de vértices de terminais atual no saída padrão.
  */
 void SteinerGraph::printTerminalSet(){
     printVertexSet(terminal, "Terminal");
 }
 
+/*
+ * Imprimi as arestas no saída padrão.
+ */
 void SteinerGraph::printEdges(){
     for (Edge e : edges)
     {
@@ -84,7 +79,8 @@ void SteinerGraph::printEdges(){
 }
 
 /**
- * Salva um arquivo com a o grafo em formato de matriz de adjacencia.
+ * Cria um arquivo com a o grafo em formato de matriz de adjacencia.
+ * @param filename nome do arquivo
  */
 void SteinerGraph::writeToFile(std::string filename)
 {
