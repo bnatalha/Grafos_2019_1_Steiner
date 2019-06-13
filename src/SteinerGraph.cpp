@@ -5,7 +5,7 @@ SteinerGraph::SteinerGraph() {}
 SteinerGraph::~SteinerGraph() {}
 
 /**
- * Função auxiliar para imprimir std:unordered_set<int>
+ * Função auxiliar para imprimer std:unordered_set<int>
  */
 void SteinerGraph::printVertexSet(std::unordered_set<int> set, std::string setname)
 {
@@ -79,21 +79,21 @@ void SteinerGraph::readFromCin()
 }
 
 /*
- * Imprimi o set de steiner atual.
+ * Imprime o set de steiner atual.
  */
 void SteinerGraph::printSteinerSet(){
     printVertexSet(steiner, "Steiner");
 }
 
 /*
- * Imprimi o conjunto de vértices de terminais atual no saída padrão.
+ * Imprime o conjunto de vértices de terminais atual no saída padrão.
  */
 void SteinerGraph::printTerminalSet(){
     printVertexSet(terminal, "Terminal");
 }
 
 /*
- * Imprimi matriz de adjacência.
+ * Imprime matriz de adjacência.
  */
 void SteinerGraph::printMatrix(){
     // header
@@ -116,7 +116,7 @@ void SteinerGraph::printMatrix(){
 }
 
 /*
- * Imprimi as arestas no saída padrão.
+ * Imprime as arestas no saída padrão.
  */
 void SteinerGraph::printEdges(){
     for (Edge e : edges)
