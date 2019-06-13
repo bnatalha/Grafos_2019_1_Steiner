@@ -29,12 +29,30 @@ int main(int argc, char const *argv[])
     ini_graph.printEdges();
     std::cout << std::endl;
 
+    auto t0 = std::chrono::steady_clock::now();
     SteinerGraph minTree = ini_graph.calcSteinerMWT();
+    auto tf = std::chrono::steady_clock::now();
+
+    auto t = tf-t0;
+
+    auto tmin = std::chrono::duration_cast<std::chrono::minutes>(t);
+    auto tsec = std::chrono::duration_cast<std::chrono::seconds>(t);
+    auto tmili = std::chrono::duration_cast<std::chrono::milliseconds>(t);
+    auto tnano = std::chrono::duration_cast<std::chrono::nanoseconds>(t);
+
+
 
     std::cout << "Custo: " << minTree.getTotalWeight() << std::endl;
 
     minTree.writeToFile("output.txt");   // escrevendo grafo em arquivo
 
+    std::cout << "\nTempo de execução: ";
+    std::string min = std::to_string(tmin.count()) + "m ";
+    std::string sec = std::to_string(tsec.count()) + "s ";
+    std::string milis = std::to_string(tmili.count()) + "ms ";
+    std::string nanos = std::to_string(tnano.count()) + "ns.\n";
+
+    std::cout << min << sec << milis << nanos << std::endl;
     return 0;
 }
 
