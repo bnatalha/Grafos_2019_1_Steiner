@@ -1,7 +1,7 @@
 #include "Header.hpp"   // Cabeçalho principal
 #include "SteinerGraph.hpp"   // Cabeçalho do grafo
 // #include "Edge.hpp"     // Arestas utilizadas no grafo de steiner
-#include <thread>
+#include <thread>   // PARA TESTE
 
 using std::cin;
 using std::cout;
@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
     SteinerGraph graph = SteinerGraph();
     
     // Leitura 
-    // graph.readFromCin();
+    graph.readFromCin();
 
     // Testando saida
     // graph.printSteinerSet();
@@ -28,11 +28,8 @@ int main(int argc, char const *argv[])
     // graph.printEdges();
     // cout << endl;
 
-    // teste de tempo
-    cout << duration() << endl;
-
     // escrevendo grafo em arquivo
-    // graph.writeToFile("nat.txt");
+    graph.writeToFile("nat.txt");
 
     return 0;
 }
