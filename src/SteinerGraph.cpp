@@ -1,6 +1,9 @@
 #include "SteinerGraph.hpp"
 
-SteinerGraph::SteinerGraph() {}
+SteinerGraph::SteinerGraph()
+{
+    root.insert(STEINER_ROOT);
+}
 
 SteinerGraph::~SteinerGraph() {}
 
