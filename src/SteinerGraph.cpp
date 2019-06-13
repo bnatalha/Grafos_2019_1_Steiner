@@ -157,12 +157,11 @@ int SteinerGraph::getTotalWeight()
 }
 
 /**
- * Retorna a árvore de custo mínimo
+ * Retorna a árvore de Steiner de custo mínimo
  */
 SteinerGraph SteinerGraph::calcSteinerMWT()
 {
     SteinerGraph T; // Incializo árvore T
-    // T.root.insert(ROOT_VERTEX);  // Adiciono o vértice raiz
     T.edges.resize(edges.size());
 
     for(int d: terminal)
@@ -173,12 +172,11 @@ SteinerGraph SteinerGraph::calcSteinerMWT()
         T.steiner.insert(minCostEdge.getDestination()); // add medicamento       
     }
 
-    // compactando
-    T.edges.shrink_to_fit();
-    // // mostrando informações
-    // T.printSteinerSet();
-    // std::cout << "Custo mínimo: " << T.getTotalWeight() << std::endl;
-    // T.printEdges();
+    
+    T.edges.shrink_to_fit();    // compactando
+    T.printSteinerSet();
+    std::cout << "Custo mínimo: " << T.getTotalWeight() << std::endl;
+    T.printEdges();
 
     return T;
 }
