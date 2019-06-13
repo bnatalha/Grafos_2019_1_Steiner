@@ -31,4 +31,4 @@ $(ODIR):
 # Limpa o repositório dos arquivos de compilados
 clean: 
 	rm -Rf src/*.dSYM
-	rm -Rf $(ODIR)
+	rm $(ODIR)/*.o
