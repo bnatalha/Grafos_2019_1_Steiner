@@ -4,13 +4,14 @@
 #ifndef SRC_STEINERGRAPH_HPP_
 #define SRC_STEINERGRAPH_HPP_
 
+const int ROOT_VERTEX = 0;
+const int ROOT_WEIGHT = 1;
+
 class SteinerGraph
 {
-    private:
+    public:
         std::unordered_set<int> steiner, terminal, root; // conjuntos de vértices
-        int steinerCount, terminalCount;    // quantidade de vértices em cada conjunto, menos o raiz
         int totalVertices;  // quantidade total de vértices + raiz
-        int rootVertex; // índice do vértice raiz; será sempre o maior de todos
         
         std::vector<Edge> edges; // arestas
         int edgesCount; // quantidade de arestas
@@ -32,6 +33,8 @@ class SteinerGraph
 
         void writeToFile(std::string);
 
+        void addSteinerRoot();
+        void calcSteinerMWT();
 };
 
 #endif // SRC_STEINERGRAPH_HPP_

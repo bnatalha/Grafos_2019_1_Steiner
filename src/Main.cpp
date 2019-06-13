@@ -17,10 +17,9 @@ int main(int argc, char const *argv[])
     // Instanciando grafo de steiner
     SteinerGraph graph = SteinerGraph();
     
-    // Leitura 
-    graph.readFromCin();
+    graph.readFromCin();    // Leitura 
+    graph.addSteinerRoot(); // Transforma numa árvore de steiner acrescentando uma raiz
 
-    // Testando saida
     // graph.printSteinerSet();
     // cout << endl;
     // graph.printTerminalSet();
@@ -28,8 +27,7 @@ int main(int argc, char const *argv[])
     // graph.printEdges();
     // cout << endl;
 
-    // escrevendo grafo em arquivo
-    graph.writeToFile("nat.txt");
+    graph.writeToFile("nat.txt");   // // escrevendo grafo em arquivo
 
     return 0;
 }

@@ -21,14 +21,12 @@ void SteinerGraph::printVertexSet(std::unordered_set<int> set, std::string setna
  */
 void SteinerGraph::readFromCin()
 {
+    int steinerCount, terminalCount;    // quantidade de vértices
+
     // Leitura da quantidade de vértices
     std::cin >> steinerCount;
     std::cin >> terminalCount;
     std::cin >> edgesCount;
-
-    // calcula índice do vértice raiz
-    // rootVertex = steinerCount + terminalCount;
-    rootVertex = 0;
     
     // calcula total de vértices
     totalVertices = steinerCount + terminalCount + 1;   // +1 da raiz
@@ -38,44 +36,40 @@ void SteinerGraph::readFromCin()
     for (int i = 0; i < totalVertices; i++)
     {
         matrix[i].resize(totalVertices, 0);
-        matrix[i][i] = 0;
+        // matrix[i][i] = 0;
     }
 
     // enche a matriz de adjacencia com os dados lidos da entrada padrão
     for (int i = 0; i < edgesCount; i++)
     {
-        int o, d, c;    // origin, destination, cost
-        std::cin >> o >> d >> c;    // leitura
-
-        // adicionando na matriz de adjacencia
-        matrix[o][d] = matrix[d][o] = c;
-        matrix[0][o] = matrix[o][0] = 0;
+        int m, d, c;    // medicamento, doença, custo
+        
+        std::cin >> m >> d >> c;    // leitura
 
         // adicionando nos conjuntos de vértices
-        steiner.insert(o);
+        steiner.insert(m);
         terminal.insert(d);
 
-        // adicionando no vector edges
-        Edge newEdge(o, d, c); // [REVIEW] deveria criar e inserir tb a aresta na direção oposta?
+        matrix[m][d] = matrix[d][m] = c; // adicionando na matriz de adjacencia
+
+        // adicionando no vector edges (doença, medicamento)
+        Edge newEdge(d, m, c);        
         edges.push_back(newEdge);
     }
+}
 
-    printMatrix(); // PARA TESTE
-    std::cout << std::endl;
+void SteinerGraph::addSteinerRoot()
+{
+    root.insert(ROOT_VERTEX);    // adiciona o vértice raiz no seu conjunto
 
-    // adiciona arestas auxiliares que ligam o vértice raiz aos vértices de steiner
-    for (int v: steiner)
+    // adiciona arestas auxiliares que ligam o vértice raiz aos vértices de steiner (medicamentos)
+    for (int m: steiner)
     {
-        // adicionando na matriz de adjacencia
-        matrix[v][rootVertex] = matrix[rootVertex][v] = 1;  // arestas (raiz,steiner) tem peso 1 por convenção.
+        matrix[m][ROOT_VERTEX] = matrix[ROOT_VERTEX][m] = ROOT_WEIGHT; // adicionando na matriz de adjacencia
 
-        // adicionando no vector edges
-        Edge newEdge(rootVertex, v, 1);  // [REVIEW] deveria criar e inserir tb a aresta na direção oposta?
+        Edge newEdge(m, ROOT_VERTEX, ROOT_WEIGHT); // adicionando no vector edges (medicamento, raiz)
         edges.push_back(newEdge);
     }
-
-    printMatrix(); // PARA TESTE
-    std::cout << std::endl;
 }
 
 /*
@@ -146,5 +140,20 @@ void SteinerGraph::writeToFile(std::string filename)
             example << std::endl;
         }
         example.close();
+    }
+}
+
+/**
+ * [TODO]
+ */
+void SteinerGraph::calcSteinerMWT(/* func caminho mais curto */)
+{
+    SteinerGraph T; // Incializo árvore T
+    T.root.insert(ROOT_VERTEX);  // Adiciono o vértice raiz
+    // T.edges.push_back(ROOT_VERTEX)  // Adiciono o vértice raiz
+
+    for(int d: terminal)
+    {
+        // add caminho mais curto ao conjunto de terminais e arestas.
     }
 }
