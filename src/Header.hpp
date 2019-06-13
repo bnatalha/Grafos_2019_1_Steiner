@@ -8,6 +8,6 @@
 #include <unordered_set>
 #include <string>
 #include <chrono>   // marcar o tempo de execução
-#include <bits/stdc++.h> // sort()
+// #include <bits/stdc++.h> // sort()
 
 #endif
