@@ -24,10 +24,15 @@ int main(int argc, char const *argv[])
     // cout << endl;
     // graph.printTerminalSet();
     // cout << endl;
-    // graph.printEdges();
-    // cout << endl;
+    graph.printEdges();
+    cout << endl;
 
-    graph.writeToFile("nat.txt");   // // escrevendo grafo em arquivo
+    std::sort(graph.edges.begin(),graph.edges.end());   // ordena as arestas
+    cout << "Ordenadas:\n";
+    graph.printEdges();
+    cout << endl;
+
+    // graph.writeToFile("nat.txt");   // // escrevendo grafo em arquivo
 
     return 0;
 }

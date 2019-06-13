@@ -31,13 +31,14 @@ void SteinerGraph::readFromCin()
     // calcula total de vértices
     totalVertices = steinerCount + terminalCount + 1;   // +1 da raiz
 
-    // prepara a matriz de adjacencia para receber os dados
+    // prepara a matriz/lista de adjacencia para receber os dados
     matrix = std::vector<std::vector<int>>(totalVertices);
     for (int i = 0; i < totalVertices; i++)
     {
         matrix[i].resize(totalVertices, 0);
-        // matrix[i][i] = 0;
+        edgesByVertex[i].resize(totalVertices);
     }
+
 
     // enche a matriz de adjacencia com os dados lidos da entrada padrão
     for (int i = 0; i < edgesCount; i++)
@@ -51,10 +52,18 @@ void SteinerGraph::readFromCin()
         terminal.insert(d);
 
         matrix[m][d] = matrix[d][m] = c; // adicionando na matriz de adjacencia
+        edgesByVertex[d].push_back(Edge(d,m,c));    // adicionando na matriz de adjacencia
 
         // adicionando no vector edges (doença, medicamento)
         Edge newEdge(d, m, c);        
         edges.push_back(newEdge);
+    }
+
+    // compactando/ordenando arestas
+    for (std::vector<Edge> vec: edgesByVertex)
+    {
+        vec.shrink_to_fit();    // compactando
+        std::sort(vec.begin(), vec.end()); // ordena crescente
     }
 }
 
@@ -142,6 +151,11 @@ void SteinerGraph::writeToFile(std::string filename)
         example.close();
     }
 }
+
+// std::vector<Edge> SteinerGraph::getNeighborhood(int v)
+// {
+//     std::vector<Edge>
+// }
 
 /**
  * [TODO]

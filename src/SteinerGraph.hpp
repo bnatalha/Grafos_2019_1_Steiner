@@ -16,6 +16,8 @@ class SteinerGraph
         std::vector<Edge> edges; // arestas
         int edgesCount; // quantidade de arestas
 
+        std::vector<std::vector<Edge>> edgesByVertex; // lista/vector de adjacencia
+
         std::vector<std::vector<int>> matrix;   // matriz de adjacência
 
     private:
@@ -31,10 +33,12 @@ class SteinerGraph
         void printEdges();
         void printMatrix();
 
-        void writeToFile(std::string);
+        std::vector<Edge> getNeighborhood(int);
 
         void addSteinerRoot();
         void calcSteinerMWT();
+
+        void writeToFile(std::string);
 };
 
 #endif // SRC_STEINERGRAPH_HPP_

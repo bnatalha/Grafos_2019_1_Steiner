@@ -1,5 +1,7 @@
 #include "Edge.hpp"
 
+Edge::Edge() {}
+
 Edge::Edge(int _origin, int _destination, int _cost){
   this->origin = _origin;
   this->destination = _destination;
